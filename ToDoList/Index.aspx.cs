@@ -36,9 +36,18 @@ namespace ToDoList
         [WebMethod]
         public static void InsertTask(string taskName)
         {
-            //Adding elements in our list
-            list.Add(new ToDo() { TaskId = count, TaskName = taskName });
-            count++;
+            //here using try and catch to handle the exception
+            try
+            {
+                //Adding elements in our list
+                list.Add(new ToDo() { TaskId = count, TaskName = taskName });
+                count++;
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            
 
         }
 
@@ -54,20 +63,28 @@ namespace ToDoList
         [WebMethod]
         public static void DeleteTask(int[] taskId)
         {
-            //Outer for loop is run until all the taskId was deleted
-            for (int j = 0; j < taskId.Length; j++)
+            //here using try and catch to handle the exception
+            try
             {
-                //Here For each loop is used to fetch all the Elements from the List which was of ToDo type.
-                foreach (var todo in list.ToList())
+                //Outer for loop is run until all the taskId was deleted
+                for (int j = 0; j < taskId.Length; j++)
                 {
-                    //Here TaskId from List was matching with element present in particular index of taskId array
-                    if (todo.TaskId == taskId[j])
+                    //Here For each loop is used to fetch all the Elements from the List which was of ToDo type.
+                    foreach (var todo in list.ToList())
                     {
-                        //If element was matched then that element was deleted by remove method of list.
-                        list.Remove(todo);
-                        continue;
+                        //Here TaskId from List was matching with element present in particular index of taskId array
+                        if (todo.TaskId == taskId[j])
+                        {
+                            //If element was matched then that element was deleted by remove method of list.
+                            list.Remove(todo);
+                            continue;
+                        }
                     }
                 }
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
 
