@@ -26,8 +26,7 @@
 
          $(document).ready(function () {
 
-              //Here counting of rows will be peformed for total task
-             var noOfTask = $(".task table tr").length;
+              
 
              //btnAddList event is trigger  when Add button is clicked
              $("#btnAddList").click(function () {
@@ -41,25 +40,26 @@
                      //If the input value is not empty then ajax method was called
                      //ajax method provides the core functionality of ajax in jQuery and sends asynchronous requests to the server
                      $.ajax({
-                         //url is used to specify the URL to send the request. Here i was sending the request for InsertTask method and here Friendly URL is not used so here using 
+                         //url is used to specify the URL to send the request. Here i was sending the request for InsertTask method.
                          url: "Index.aspx/InsertTask",
                         //type is used to specify the type of request we was sending. Here POST is using because it's safer than get and does not store the value in the browser history
                         type: 'POST',
                         //contentType is used to specify what type fo content we are sending.Here json type content was sending.
                         contentType: "application/json",
-                        //Data is used to specify thet data to be sent to ther server.Here JSON.stringify is used to convert the data into string format.
+                        //Data is used to specify the data to be sent to ther server.Here JSON.stringify is used to convert the data into string format.
                         data: JSON.stringify({ taskName: taskName }),
                         // success hold a function which will be executed when the request succeeds.
                         success: function () {
                             //TotalTask();
 
+                            //GetAllTask function will be called when new value entered and it display the old and also the new value.
+                            GetAllTask();
 
                             // Here Total number of task will be printed
                             $("#TotalTask").text($(".task table tr").length + 1);
-                            console.log($(".task table tr").length + 1);
+                           // console.log($(".task table tr").length + 1);
                             
-                            //GetAllTask function will be called when new value entered and it display the old and also the new value.
-                            GetAllTask();
+                            
                         },
 
                         //error hold a function which will be executed when the request fails.
@@ -95,13 +95,13 @@
                           contentType: "application/json",
                           data: JSON.stringify({ taskId: checkedId }),
                           success: function () {
-                              //Whenever value is delted the GetAllTask method will be called and fetch the new element list.
+                              //Whenever value is deleted the GetAllTask method will be called and fetch the new element list.
                               GetAllTask();
                               // TotalTask();
 
                               // Here Total number of task will be printed
-                              $("#TotalTask").text(noOfTask);
-                              //console.log(noOfTask);
+                              $("#TotalTask").text($(".task table tr").length - checkedId.length);
+                              //console.log($(".task table tr").length - checkedId.length);
 
                           },
                          error: function (error) {
@@ -153,6 +153,7 @@
                  });
              };
 
+             
 
               <%--function TotalTask() {
                  $.ajax({

@@ -30,6 +30,9 @@ namespace ToDoList
         //Method for Inserting Task
         //Here WebMethod is used which was imported from System.Web.Services namespace.
         //WebMethod is as Web Service and its purpose is to handle the ajax request which was coming. Without this our method was not able to handle or serve the ajax request.
+
+        //here method was defined as static because the ajax request was of POST type and if we does not use static then an errow 500 error code will come means that there is something wrong on the server-side.
+        //If we want to remove the 500 error issue for POST type use static keyword in method.
         [WebMethod]
         public static void InsertTask(string taskName)
         {
@@ -52,22 +55,22 @@ namespace ToDoList
         public static void DeleteTask(int[] taskId)
         {
             //Outer for loop is run until all the taskId was deleted
-               for(int j =0;j<taskId.Length;j++)
+            for (int j = 0; j < taskId.Length; j++)
+            {
+                //Here For each loop is used to fetch all the Elements from the List which was of ToDo type.
+                foreach (var todo in list.ToList())
                 {
-                    //Here For each loop is used to fetch all the Elements from the List which was of ToDo type.
-                    foreach (ToDo i in list)
+                    //Here TaskId from List was matching with element present in particular index of taskId array
+                    if (todo.TaskId == taskId[j])
                     {
-                        //Here TaskId from List was matching with element present in particular index of taskId array
-                        if (i.TaskId == taskId[j])
-                        {
-                            //It element was matched then that element was deleted by remove method of list.
-                            list.Remove(i);
-                            break;
-                        }
+                        //If element was matched then that element was deleted by remove method of list.
+                        list.Remove(todo);
+                        continue;
                     }
                 }
-
+            }
         }
+
 
         /*
         [WebMethod] public static int CountTask()
@@ -78,5 +81,8 @@ namespace ToDoList
             return countTask;
         }
         */
+
     }
+
+
 }
