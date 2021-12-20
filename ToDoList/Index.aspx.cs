@@ -31,7 +31,7 @@ namespace ToDoList
         //Here WebMethod is used which was imported from System.Web.Services namespace.
         //WebMethod is as Web Service and its purpose is to handle the ajax request which was coming. Without this our method was not able to handle or serve the ajax request.
 
-        //here method was defined as static because the ajax request was of POST type and if we does not use static then an errow 500 error code will come means that there is something wrong on the server-side.
+        //here method was defined as static because the ajax request was of POST type and if we does not use static then an 500 error code will come means that there is something wrong on the server-side.
         //If we want to remove the 500 error issue for POST type use static keyword in method.
         [WebMethod]
         public static void InsertTask(string taskName)
