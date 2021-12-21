@@ -37,7 +37,7 @@
                  if (taskName == "") {
                      alert("TaskName is required");
                  } else if (!regex.test(taskName)) {
-                     alert("TaskName only contain alphabets and Length must between 3 to 200 characters ");
+                     alert("TaskName only contain alphabets or Length must between 3 to 200 characters ");
                  } else {
                      //If the input value is not empty then ajax method was called
                      //ajax method provides the core functionality of ajax in jQuery and sends asynchronous requests to the server
