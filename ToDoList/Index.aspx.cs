@@ -34,21 +34,32 @@ namespace ToDoList
         //here method was defined as static because the ajax request was of POST type and if we does not use static then an 500 error code will come means that there is something wrong on the server-side.
         //If we want to remove the 500 error issue for POST type use static keyword in method.
         [WebMethod]
-        public static void InsertTask(string taskName)
+        public static int InsertTask(string taskName)
         {
             //here using try and catch to handle the exception
             try
             {
+               
+                //Here For each loop is used to fetch all the Elements from the List which was of ToDo type.
+                foreach (var todo in list.ToList())
+                {
+                    //Here TaskId from List was matching with taskName
+                    if (todo.TaskName == taskName)
+                    {
+                        //if task was already present then return 0
+                        return 0;
+                    }
+                }
                 //Adding elements in our list
                 list.Add(new ToDo() { TaskId = count, TaskName = taskName });
                 count++;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-            
 
+            return 1;
         }
 
         //Method for Getting All Task
@@ -82,7 +93,7 @@ namespace ToDoList
                     }
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
